@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <main id='content'>
+        {% comment %} Hero Section {% endcomment %}
+        {% include "core_app/hero.html" %}
+
+
+
+        {% comment %} Based on the user type return the data {% endcomment %}
+
+        {% if user_type == 'creator' %}
+
+            {% include 'core_app/creator.html' %}
+
+        {% elif user_type == 'supporter' %}
+        
+            {% include "core_app/supporter.html" %}
+
+        {% elif user_type == 'visitor' %}
+
+            {% include "core_app/visitor.html" %}
+            
+        {% endif %}
+            
+
+    </main>
+
+{% endblock content %}
+
+
+
