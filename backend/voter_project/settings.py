@@ -196,6 +196,10 @@ EMAIL_USE_TLS = True
 
 
 
+VITE_APP_DIR = FRONTEND_DIR 
+
+
+
 # Rest Frame work setting
 REST_FRAMEWORK = {
     #  "DEFAULT_PERMISSION_CLASSES": [
