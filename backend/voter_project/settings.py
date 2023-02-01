@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mkm-voter.onrender.com']
-INTERNAL_IPS = ['127.0.0.1']
+
 
 
 # Application definition
@@ -230,7 +230,6 @@ CORS_ALLOW_HEADERS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:5173",
-    "http://127.0.0.1:3000",
 ]
 
 CORS_ALLOW_METHODS = [
