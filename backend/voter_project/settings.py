@@ -22,9 +22,7 @@ INTERNAL_IPS = ['127.0.0.1']
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-# DEBUG = os.getenv('DEBUG')
-
-DEBUG = False
+DEBUG = os.getenv('DEBUG')
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mkm-voter.onrender.com']
