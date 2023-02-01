@@ -4,19 +4,18 @@ import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
 
 
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useParams} from 'react-router-dom';
 
 
-function PasswordResetConfirmForm({action, match}) {
-
+function PasswordResetConfirmForm({action}) {
+  const { uid, token } = useParams();
   const [done, setDone] = useState(false)
 
   const handleFormSubmit = (values, {resetForm}) => {
    
         // const uid = match.params.uid;
         // const token = match.params.token;
-        const uid = 'Mw'
-        const token ='bixeqx-213e0e17ead2fa49c0cc70aebda4594e'
+        
         const new_password = values['password']
         const re_new_password = values['confirm_password']
 

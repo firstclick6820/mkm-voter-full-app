@@ -33,7 +33,7 @@ const PasswordResetConfirm = ({ match, reset_password_confirm }) => {
                                         </p>
                                     </div>
 
-                                    <PasswordResetConfirmForm match={match} action={reset_password_confirm}/>
+                                    <PasswordResetConfirmForm action={reset_password_confirm}/>
 
                                 </div>
 

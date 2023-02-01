@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // import React router Component
-import { Link , Navigate} from 'react-router-dom';
+import { Link , Navigate, useParams} from 'react-router-dom';
 
 
 
@@ -12,18 +12,17 @@ import { verify } from '../../../actions/auth';
 
 const Activate = ({ verify, match }) => {
     const [verified, setVerified] = useState(false);
+    const { uid, token } = useParams();
 
     const verify_account = e => {
-        // const uid = match.params.uid;
-        // const token = match.params.token;
-        const uid="Mw"
-        const token = "bixdpo-9f79e67c253a8b28125c274f143b1b31"
+        
+
         verify(uid, token);
         setVerified(true);
     };
 
     if(verified){
-        return  <Navigate to="/login" />
+        return  <Navigate to="/account/login" />
     
     }
     else {
