@@ -1,3 +1,4 @@
+{% load static %}
 {% load render_vite_bundle %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voter APP</title>
 
-    {% if debug %} 
+    {% if settings.DEBUG %}
       <script type="module" src="http://localhost:5173/@vite/client"></script>
     
     <!-- If you're using vite with React, this next script will be needed for HMR -->
@@ -24,8 +25,8 @@
 <body>
 
   <div id="root"></div>
-
-  {% if debug %}
+  
+  {% if settings.DEBUG %}
       <script type="module" src="http://localhost:5173/src/main.jsx"></script>
   {% else %}
       {% render_vite_bundle %}
