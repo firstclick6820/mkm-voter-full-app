@@ -55,7 +55,7 @@ const Pages = () => {
                       <Route exact path="/account/activate/:uid/:token" element={<Activate />} />
                       <Route exact path="/account/password_reset" element={<PasswordReset />} />
                       <Route exact path="/account/password_reset/done" element={<PasswordResetDone />} />
-                      <Route exact path="/account/password_confirm" element={<PasswordResetConfirm />} />
+                      <Route exact path="/account/password_confirm/:uid/:token" element={<PasswordResetConfirm />} />
                       <Route exact path="/account/password_confirm/complete" element={<PasswordResetComplete />} />
                       <Route exact path="/user/profile" element={<Profile />} />
                       <Route exact path="/user/settings" element={<Settings />} />

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 
 
 // import global pages / components
@@ -13,21 +13,25 @@ import {checkAuthenticated, load_user} from '../actions/auth'
 
 
 
-const MainLayout = (props) => {
+const MainLayout = ({ checkAuthenticated, load_user, children }) => {
 
   useEffect(() => {
-      props.checkAuthenticated();
-      props.load_user();
+     checkAuthenticated();
+     load_user();
   }, [])
 
 
   return (
     <>  
         <Navbar />
-            {props.children}
+            {children}
         {/* <Footer /> */}
     </>
   )
 };
 
 export default connect(null, {checkAuthenticated, load_user})(MainLayout);
+
+
+
+

@@ -14,4 +14,3 @@ const store = configureStore({ reducer: rootReducers }, initialSatate, composeWi
 
 
 export default store;
-
