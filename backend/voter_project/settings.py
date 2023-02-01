@@ -260,7 +260,7 @@ SIMPLE_JWT = {
     )
 }
 
-PRODUCTION = False
+PRODUCTION = True
 SITE_NAME = "SuperVoter.com" 
 
 if PRODUCTION:
