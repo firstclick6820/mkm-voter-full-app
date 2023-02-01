@@ -265,7 +265,7 @@ PRODUCTION = True
 SITE_NAME = "SuperVoter.com" 
 
 if PRODUCTION:
-    DOMAIN = "https://mkm-voter.onrender.com"
+    DOMAIN = "mkm-voter.onrender.com"
 else:
     DOMAIN = "http://localhost:8000"
 
