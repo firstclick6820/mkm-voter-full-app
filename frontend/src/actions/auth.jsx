@@ -1,19 +1,28 @@
 import {
+    LOGIN_SUCCESS,
     LOGIN_FAIL,
+
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
-    LOGIN_SUCCESS,
-    AUTHENTICATED_FAIL,
+
     AUTHENTICATED_SUCCESS,
-    LOGGOUT,
-    PASSWORD_RESET_CONFIRM_FAIL,
-    PASSWORD_RESET_CONFIRM_SUCCESS,
-    PASSWORD_RESET_FAIL,
+    AUTHENTICATED_FAIL,
+
     PASSWORD_RESET_SUCCESS,
+    PASSWORD_RESET_FAIL,
+    
+    PASSWORD_RESET_CONFIRM_SUCCESS,
+    PASSWORD_RESET_CONFIRM_FAIL,
+
     SIGNUP_SUCCESS,
     SIGNUP_FAIL,
+    
     ACTIVATION_FAIL,
-    ACTIVATION_SUCCESS
+    ACTIVATION_SUCCESS,
+    
+    LOGGOUT,
+
+
 } from '../actions/types';
 
 
@@ -71,8 +80,9 @@ export const checkAuthenticated = () =>async dispatch => {
 
 // Load User
 export const load_user = () => async dispatch => {
-    
-    if(localStorage.getItem('access')) {
+    const token = localStorage.getItem('access')
+
+    if(token) {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -127,7 +137,7 @@ export const login = (email, password ) => async dispatch => {
     const body = JSON.stringify({email, password})
 
     try {
-        const res = await axios.post('auth/jwt/create', body, config);
+        const res = await axios.post('auth/jwt/create/', body, config);
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -185,7 +195,7 @@ export const verify = (uid, token) => async dispatch => {
         await axios.post('/auth/users/activation/', body, config);
 
         dispatch({
-            type: ACTIVATION_SUCCESS,
+            type: ACTIVATION_SUCCESS
         });
     } catch (err) {
         dispatch({
@@ -223,15 +233,14 @@ export const reset_password = (email) =>  async dispatch =>{
         const res = await axios.post('/auth/users/reset_password/', body, config);
 
         dispatch({
-            type: PASSWORD_RESET_SUCCESS,
-            payload: res.data
+            type: PASSWORD_RESET_SUCCESS
         });
 
     }
     catch(err) {
 
         dispatch({
-            type:PASSWORD_RESET_FAIL,
+            type:PASSWORD_RESET_FAIL
         });
     };
 }
@@ -254,15 +263,14 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
         const res = await axios.post('/auth/users/reset_password_confirm/', body, config);
 
         dispatch({
-            type: PASSWORD_RESET_CONFIRM_SUCCESS,
-            payload: res.data
+            type: PASSWORD_RESET_CONFIRM_SUCCESS
         });
 
     }
     catch(err) {
 
         dispatch({
-            type:PASSWORD_RESET_CONFIRM_FAIL,
+            type:PASSWORD_RESET_CONFIRM_FAIL
         });
     };
 }

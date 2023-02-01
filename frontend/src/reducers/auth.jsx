@@ -1,19 +1,29 @@
+
+
 import {
-        LOGIN_FAIL,
-        LOAD_USER_SUCCESS,
-        LOAD_USER_FAIL,
-        LOGIN_SUCCESS,
-        AUTHENTICATED_SUCCESS,
-        AUTHENTICATED_FAIL,
-        LOGGOUT,
-        PASSWORD_RESET_CONFIRM_FAIL,
-        PASSWORD_RESET_CONFIRM_SUCCESS,
-        PASSWORD_RESET_FAIL,
-        PASSWORD_RESET_SUCCESS,
-        SIGNUP_FAIL, 
-        SIGNUP_SUCCESS,
-        ACTIVATION_FAIL, 
-        ACTIVATION_SUCCESS
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL,
+
+    AUTHENTICATED_SUCCESS,
+    AUTHENTICATED_FAIL,
+
+    PASSWORD_RESET_SUCCESS,
+    PASSWORD_RESET_FAIL,
+    
+    PASSWORD_RESET_CONFIRM_SUCCESS,
+    PASSWORD_RESET_CONFIRM_FAIL,
+
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL,
+    
+    ACTIVATION_FAIL,
+    ACTIVATION_SUCCESS,
+    
+    LOGGOUT,
+
     } from '../actions/types';
 
 
@@ -46,8 +56,9 @@ export default function(state= intialState, action) {
                 isAuthenticated: false,
                     
             }
+
         // Login Success
-        case LOGIN_SUCCESS: 
+        case LOGIN_SUCCESS:
             localStorage.setItem('access', payload.access);
             localStorage.setItem('refresh', payload.refresh);
             return {
@@ -108,12 +119,9 @@ export default function(state= intialState, action) {
                 ...state
             }
 
-    
-
         default: 
             return state
-            
-            
+
 
     }
 };

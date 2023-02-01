@@ -1,10 +1,10 @@
-# render_vite_bundle.py
-import json
-from pathlib import Path
-
 from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
+
+import json
+from pathlib import Path
+
 
 register = template.Library()
 
@@ -37,15 +37,9 @@ def render_vite_bundle():
 
     manifest = load_json_from_dist()
 
-    imports_files = "".join(
-        [
-            f'<script type="module" src="/static/{manifest[file]["file"]}"></script>'
-            for file in manifest["index.html"]["imports"]
-        ]
-    )
-
     return mark_safe(
-        f"""<script type="module" src="/static/{manifest['index.html']['file']}"></script>
-        <link rel="stylesheet" type="text/css" href="/static/{manifest['index.html']['css'][0]}" />
-        {imports_files}"""
+        f"""
+        <link rel="stylesheet" type="text/css" href="/static/{manifest['index.css']['file']}" />
+        <script type="module" src="/static/{manifest['index.html']['file']}"></script>
+        """
     )
