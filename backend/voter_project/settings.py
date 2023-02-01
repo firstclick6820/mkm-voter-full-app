@@ -4,6 +4,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
+import socket
 load_dotenv()
 
 
@@ -259,6 +260,15 @@ SIMPLE_JWT = {
         'rest_framework_simplejwt.tokens.AccessToken',
     )
 }
+
+PRODUCTION = True
+SITE_NAME = "SuperVoter.com" 
+
+if PRODUCTION:
+    DOMAIN = "https://mkm-voter.onrender.com"
+else:
+    DOMAIN = "http://localhost:8000"
+
 
 # DJOSER CONFIG
 DJOSER = {
