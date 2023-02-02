@@ -1,25 +1,16 @@
 import React, { useEffect } from 'react'
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-
-// import loadPOlls Action
-
-import {loadPolls} from '../../actions/polls'
 
 
 // import custom components
-import { PollCard, PollShowCase, VoteCard } from '../../components'
+import {PollShowCase} from '../../components'
+
 
 const Polls = () => {
+
   const polls = useSelector(state => state.polls.polls)
- 
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(loadPolls())
-  }, [dispatch])
 
   return (
     <>
@@ -39,4 +30,4 @@ const Polls = () => {
   )
 }
 
-export default Polls
+export default Polls;

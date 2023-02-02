@@ -1,37 +1,41 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react';
+
+
+// redux components
+import { useSelector, useDispatch } from 'react-redux';
+
 
 
 // import global pages / components
-import Navbar from '../pages/global/navbar/Navbar'
-import Footer from '../pages/global/footer/Footer'
+import Navbar from '../pages/global/navbar/Navbar';
+import Footer from '../pages/global/footer/Footer';
 
 
-import { connect } from 'react-redux'
 
 // import actions
-import {checkAuthenticated, load_user} from '../actions/auth'
+import { checkAuthenticated, load_user } from '../actions/auth';
 
 
+import { loadPolls } from '../actions/polls';
 
-const MainLayout = ({ checkAuthenticated, load_user, children }) => {
+const MainLayout = ({ children }) => {
+  const dispatch = useDispatch();
+  const authenticated = useSelector(state => state.auth.authenticated);
 
   useEffect(() => {
-     checkAuthenticated();
-     load_user();
-  }, [])
-
+    dispatch(checkAuthenticated());
+    dispatch(load_user());
+    dispatch(loadPolls());
+  }, [dispatch]);
 
   return (
-    <>  
-        <Navbar />
-            {children}
-        {/* <Footer /> */}
+    <>
+      <Navbar />
+      {children}
+      {/* <Footer /> */}
     </>
-  )
+  );
 };
 
-export default connect(null, {checkAuthenticated, load_user})(MainLayout);
-
-
-
+export default MainLayout;
 
