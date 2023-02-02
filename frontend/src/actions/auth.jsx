@@ -120,7 +120,7 @@ export const load_user = () => async dispatch => {
 
 
 
-
+// Login Funcation
 export const login = (email, password) => async dispatch => {
     const config = {
       headers: {
@@ -131,25 +131,39 @@ export const login = (email, password) => async dispatch => {
     const body = JSON.stringify({ email, password });
   
     try {
+        
       const res = await axios.post('auth/jwt/create/', body, config);
+      
   
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data
-      });
-  
-      dispatch(load_user());
-  
-      return true;
+      if (res.status === 200) {
+
+            dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+            });
+        
+            dispatch(load_user());
+    
+            return true;
+
+      } else {
+
+            dispatch({
+            type: LOGIN_FAIL
+            });
+
+            return false;
+      }
     } catch (err) {
-      dispatch({
-        type: LOGIN_FAIL
-      });
-  
-      return false;
+
+            dispatch({
+                type: LOGIN_FAIL
+            });
+        
+            return false;
     }
   };
-  
+
 
 
 

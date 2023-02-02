@@ -61,7 +61,7 @@ function SignUpForm({action}) {
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     value={values.account_type}
-                                    error={!!touched.account_type && !!errors.account_type}
+                                    error={touched.account_type && errors.account_type}
                                     helpertext={touched.account_type && errors.account_type}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                                     <option>Select Account Type</option>
@@ -86,7 +86,7 @@ function SignUpForm({action}) {
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     value={values.email}
-                                    error={!!touched.email && !!errors.email}
+                                    error={touched.email && errors.email}
                                     helpertext={touched.email && errors.email}
                                     className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                 
@@ -108,7 +108,7 @@ function SignUpForm({action}) {
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     value={values.password}
-                                    error={!!touched.password && !!errors.password}
+                                    error={touched.password && errors.password}
                                     helpertext={touched.password && errors.password}
                                     className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 
@@ -129,7 +129,7 @@ function SignUpForm({action}) {
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     value={values.re_password}
-                                    error={!!touched.re_password && !!errors.re_password}
+                                    error={touched.re_password && errors.re_password}
                                     helpertext={touched.re_password && errors.re_password}
                                     className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
 
@@ -158,11 +158,14 @@ function SignUpForm({action}) {
                             </div>
 
                             
+                
+
+
                             <button type="submit" 
-                                    className="w-full text-white bg-red-600 hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    disabled={Object.keys(errors).length > 0 || !values.account_type || !values.email || !values.password || !values.re_password}
+                                    className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
                                     Create an account
                             </button>
-
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">Already have an account?
                                 <Link   to="/account/login" 
                                         className="hover:underline decoration-2 hover:text-red-600 ml-2">

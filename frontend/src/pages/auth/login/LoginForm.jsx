@@ -18,6 +18,8 @@ function LoginForm({login}) {
   const handleFormSubmit = (values, {resetForm}) => {
     const email = values['email']
     const pwd = values['password']
+
+
     if(login(email, pwd)){
       resetForm()
       return  <Navigate to='/' />
@@ -63,7 +65,7 @@ function LoginForm({login}) {
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.email}
-                            error={!!touched.email && !!errors.email}
+                            error={touched.email && errors.email}
                             helpertext={touched.email && errors.email}
                             className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         
@@ -84,7 +86,7 @@ function LoginForm({login}) {
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.password}
-                            error={!!touched.password && !!errors.password}
+                            error={touched.email && errors.email}
                             helpertext={touched.password && errors.password}
                             className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 
@@ -102,9 +104,16 @@ function LoginForm({login}) {
 
                     
                     <button type="submit" 
-                            className="w-full text-white bg-red-600 hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            disabled={Object.keys(errors).length > 0 || !values.email || !values.password}
+                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
+                            
                             Login
                     </button>
+
+
+        
+
+
 
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">Don't have an account?
                         <Link   to="/account/register" 
