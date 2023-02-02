@@ -15,7 +15,6 @@ const Login = ({login, isAuthenticated}) => {
     
     if(isAuthenticated){
         return  <Navigate to="/" />
-    
     }
     else {
 
@@ -30,7 +29,7 @@ const Login = ({login, isAuthenticated}) => {
                                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                             Login
                                         </h1>
-                                        <LoginForm login={login}/>
+                                        <LoginForm login={login} logged={isAuthenticated}/>
                                     </div>
                                 </div>
                             </div>

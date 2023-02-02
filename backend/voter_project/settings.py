@@ -20,10 +20,12 @@ INTERNAL_IPS = ['127.0.0.1']
 
 
 
+API_URL = os.environ.get('API_URL', 'http://localhost:8000/')
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG')
-
+# DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mkm-voter.onrender.com']
@@ -234,9 +236,9 @@ CORS_ALLOW_HEADERS = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:5173",
-    "https://mkm-voter.onrender.com"
+    "http://localhost:8000/",
+    "http://127.0.0.1:5173/",
+    "https://mkm-voter.onrender.com/"
 ]
 
 CORS_ALLOW_METHODS = [
@@ -260,13 +262,18 @@ SIMPLE_JWT = {
     )
 }
 
-PRODUCTION = True
+
+
+PRODUCTION = False
 SITE_NAME = "SuperVoter.com" 
 
 if PRODUCTION:
     DOMAIN = "mkm-voter.onrender.com"
 else:
-    DOMAIN = "http://localhost:8000"
+    DOMAIN = "localhost:8000"
+
+
+
 
 
 # DJOSER CONFIG

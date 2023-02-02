@@ -9,7 +9,7 @@ import * as yup from "yup";
 
 
 // import react router dom components
-import { Link } from 'react-router-dom';
+import { Link , Navigate} from 'react-router-dom';
 
 
 
@@ -18,9 +18,18 @@ function LoginForm({login}) {
   const handleFormSubmit = (values, {resetForm}) => {
     const email = values['email']
     const pwd = values['password']
-    login(email, pwd)
-    resetForm()
+    if(login(email, pwd)){
+      resetForm()
+      return  <Navigate to='/' />
+    }
+    else {
+            console.log('Incorrect Password')
+    }
+    
   }
+
+
+  
 
 
 
