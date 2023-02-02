@@ -27,7 +27,6 @@ import {
 
 
 import axios from '../assets/api/api';
-console.log(axios.baseURL)
 
 
 // Authentication
