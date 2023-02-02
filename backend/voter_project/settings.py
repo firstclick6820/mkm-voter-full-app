@@ -264,7 +264,9 @@ SIMPLE_JWT = {
 
 
 
-PRODUCTION = True
+
+# PRODUCTION = False
+PRODUCTION = DEBUG
 SITE_NAME = "SuperVoter.com" 
 
 if PRODUCTION:

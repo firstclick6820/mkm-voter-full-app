@@ -1,11 +1,19 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 
-from django.contrib.auth.decorators import user_passes_test, login_required
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import generics
 
-from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Poll, Choice, Vote
+from .seriailzers import PollSerializer, ChoiceSerializer, VoteSerializer
 
 
 
+
+
+
+
+
+class PollList(generics.ListAPIView):
+    queryset = Poll.objects.all().order_by('-created_at')
+    serializer_class = PollSerializer

@@ -1,3 +1,5 @@
+
+//  ----------------------------------------------- AUTH -----------------------------------------------
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 
@@ -29,4 +31,10 @@ export const FACEBOOK_AUTH_SUCCESS = 'FACEBOOK_AUTH_SUCCESS';
 export const FACEBOOK_AUTH_FAIL = 'FACEBOOK_AUTH_FAIL';
 export const LOGOUT = 'LOGOUT';
 
+
+
+
+//  ----------------------------------------------- POLLS -----------------------------------------------
+export const POLLS_LOADED_SUCCESS = 'POLLS_LOADED_SUCCESS'
+export const POLLS_LOADED_FAIL = 'POLLS_LOADED_FAIL'
 
