@@ -5,29 +5,51 @@ import { useSelector } from 'react-redux'
 
 
 // import custom components
-import {PollShowCase} from '../../components'
+import {VoteCard, PollCard } from '../../components'
 
 
 const Polls = () => {
-
+  const authUser = useSelector(state => state.auth.user)
   const polls = useSelector(state => state.polls.polls)
 
   return (
     <>
-      <div className="section relative z-0 py-16 md:pt-32 pt-32 md:pb-20">
-        <div className="container xl:max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-5">All <span className="text-red-600">Polls</span></h2>
-          {polls && polls.length > 0 ? (
-            polls.map((poll, id) => (
-              <PollShowCase key={id} poll={poll} />
-            ))
-          ) : (
-            <h1>No Data To Display</h1>
-          )}
+        <div className="section relative z-0 py-16 md:pt-20 pt-20 md:pb-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-4">
+            
+                  {/* First Column   */}
+                  <div className="lg:col-span-3 col-span-1">
+                    <div className="lg:sticky relative top-8">
+                    
+                    </div>
+                  </div>
+
+                  {/* Second colum / */}
+                  <div className="lg:col-span-9 col-span-1 gap-2">
+                  {polls && polls.length > 0 ? (
+                      polls.map((poll, id) => {
+                        let loggedIn = false;
+                        if (authUser && authUser.email) {
+                          loggedIn = true;
+                        }
+                        let emailFound = false;
+                        if (loggedIn && poll.voters && poll.voters.includes(authUser.email)) {
+                          emailFound = true;
+                        }
+                        return emailFound ? <PollCard key={id} poll={poll} voted={true}/> : <PollCard key={id} poll={poll} voted={false} />;
+                      })
+                    ) : (
+                      <h1>No Data To Display</h1>
+                    )}
+
+            
+                  </div>
+            </div>
         </div>
-      </div>
     </>
   )
 }
 
 export default Polls;
+
+

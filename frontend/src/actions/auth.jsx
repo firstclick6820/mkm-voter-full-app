@@ -5,6 +5,9 @@ import {
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
 
+    USER_PROFILE_LOADED_SUCCES,
+    USER_PROFILE_LOADED_FAIL,
+
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
 
@@ -116,6 +119,33 @@ export const load_user = () => async dispatch => {
     };
         
 };
+
+
+export const load_user_profile = (id) => async (dispatch) => {
+
+   
+        try {
+            const res = await axios.get(`api/users/profile/${id}/`)
+          
+            dispatch({
+                type: USER_PROFILE_LOADED_SUCCES,
+                payload: res.data,
+                
+            });
+ 
+          
+        }
+        catch(err){
+            dispatch({
+                type: USER_PROFILE_LOADED_FAIL,
+
+            });
+          
+        }
+    
+   
+}
+
 
 
 

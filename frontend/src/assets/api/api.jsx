@@ -14,5 +14,5 @@ let API_URL;
   }
 
 export default axios.create({
-    baseURL: API_URL,
+    baseURL: 'http://localhost:8000/',
 });

@@ -85,9 +85,17 @@ class Profile(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     address=models.CharField(max_length=255, blank=True, null=True)
     
+    date_of_joining = models.DateField(null=True, blank=True)
+    
+    first_name= models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     
     
     
+    
+    
+    def fullname(self):
+        return "{} {}".format(self.first_name, self.last_name)
     
     #Return the user Email, khalid@mgail.com
     def __str__(self):

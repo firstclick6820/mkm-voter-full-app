@@ -2,17 +2,24 @@ import React, {Fragment} from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { connect } from 'react-redux';
+import { connect , useSelector} from 'react-redux';
 import { loggout } from '../../../actions/auth';
 
 
 const Navbar = ({loggout, isAuthenticated}) => {
+   const authUser = useSelector(state => state.auth.user)
+   
+   const uid = authUser === null ? 0 : authUser.id;
+
+
+
+
 
   const authLinks = () => {
     return (
         <Fragment>
           <li className="relative hover:text-black">
-              <Link  to="/user/profile"
+              <Link  to={`/user/profile/${uid}/`}
                     className="hover:underline decoration-2 hover:text-red-600 block py-3 lg:py-7 px-6">Profile</Link>                  
           </li>
 

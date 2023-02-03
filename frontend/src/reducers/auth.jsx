@@ -7,6 +7,9 @@ import {
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
 
+    USER_PROFILE_LOADED_SUCCES,
+    USER_PROFILE_LOADED_FAIL,
+
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
 
@@ -31,7 +34,8 @@ const intialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: false,
-    user: null
+    user: null,
+    userProfile: null,
 }
 
 
@@ -94,6 +98,9 @@ export default function(state= intialState, action) {
 
             }
 
+
+
+
         // User Loaded Success
         case LOAD_USER_SUCCESS:
             return {
@@ -108,6 +115,20 @@ export default function(state= intialState, action) {
                 ...state,
                 user: null
                 }
+
+
+        // Load user Profile
+        case USER_PROFILE_LOADED_SUCCES:
+            return {
+                ...state,
+                userProfile: payload
+            }
+
+        case USER_PROFILE_LOADED_FAIL: 
+            return {
+                ...state,
+                userProfile: null
+            }
 
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_FAIL:

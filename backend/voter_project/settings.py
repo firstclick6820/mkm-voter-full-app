@@ -24,8 +24,8 @@ API_URL = os.environ.get('API_URL', 'http://localhost:8000/')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG')
-# DEBUG = True
+# DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mkm-voter.onrender.com']
@@ -194,7 +194,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='mohammadkhalidmomand@gmail.com'
-EMAIL_HOST_PASSWORD = 'rmryyzmunwzaiokx'
+EMAIL_HOST_PASSWORD = 'mpcsforiavklfbeb'
 EMAIL_USE_TLS = True
 
 
@@ -266,7 +266,7 @@ SIMPLE_JWT = {
 
 
 # PRODUCTION = False
-PRODUCTION = DEBUG
+PRODUCTION = False
 SITE_NAME = "SuperVoter.com" 
 
 if PRODUCTION:
@@ -297,7 +297,7 @@ DJOSER = {
     "SERIALIZERS": {
         "user_create": "accounts.serializers.UserCreateSerializer",  # custom serializer
         "user": "accounts.serializers.UserCreateSerializer",
-        "current_user": "djoser.serializers.UserSerializer",
+        "current_user": "accounts.serializers.UserCreateSerializer",
         "user_delete": "djoser.serializers.UserSerializer",
     },
 }

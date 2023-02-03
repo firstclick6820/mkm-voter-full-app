@@ -27,16 +27,18 @@ const Home = () => {
 
 
       {/* Polls Sextion */}
-      <div className="section relative z-0 py-16 md:pt-32 pt-32 md:pb-20">
-        <div className="container xl:max-w-6xl mx-auto px-4 text-center">
-          {polls && polls.length > 0 ? (
-            polls.map((poll, id) => (
-              <PollShowCase key={id} poll={poll} />
-            ))
-          ) : (
-            <h1>No Data To Display</h1>
-          )}
-        </div>
+      <div className="section relative z-0 py-16 md:pt-12 pt-12 md:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">    
+                  {polls && polls.length > 0 ? (
+                        polls.map((poll, id) => (
+                          <PollShowCase key={id} poll={poll} />
+                        ))
+                  ) : (
+                        <h1>No Data To Display</h1>
+                  )}
+          
+          </div>
+        
       </div>
     </>
   )

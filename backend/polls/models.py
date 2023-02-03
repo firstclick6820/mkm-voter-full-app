@@ -62,7 +62,7 @@ class Vote(models.Model):
 
 
     def __str__(self):
-        return self.user.username
+        return self.choice.choice_text
     
     
 

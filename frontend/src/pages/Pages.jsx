@@ -57,7 +57,7 @@ const Pages = () => {
                       <Route exact path="/account/password_reset/done" element={<PasswordResetDone />} />
                       <Route exact path="/account/password_confirm/:uid/:token" element={<PasswordResetConfirm />} />
                       <Route exact path="/account/password_confirm/complete" element={<PasswordResetComplete />} />
-                      <Route exact path="/user/profile" element={<Profile />} />
+                      <Route exact path="/user/profile/:uid/" element={<Profile />} />
                       <Route exact path="/user/settings" element={<Settings />} />
                   </Routes>
             </MainLayout>
