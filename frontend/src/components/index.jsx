@@ -10,3 +10,8 @@ export { default as PollShowCase } from './polls/PollShowCase'
 
 // export Profile components
 export {default as ProfileCard } from './profile/ProfileCard'
+
+
+
+// export general components
+export {default as PostCard}  from './general/SideCard'

@@ -3,13 +3,16 @@ import axios from '../assets/api/api';
 
 import { 
             POLLS_LOADED_SUCCESS, 
-            POLLS_LOADED_FAIL 
+            POLLS_LOADED_FAIL, 
+            POLL_LOADED_FAIL,
+            POLL_LOADED_SUCCESS
 
 
 } from '../actions/types';
 
 const initialState = {
   polls: null,
+  poll: null,
 };
 
 export default function(state = initialState, action) {
@@ -28,6 +31,19 @@ export default function(state = initialState, action) {
         ...state,
         polls: null,
       };
+
+    case POLL_LOADED_SUCCESS: 
+        return {
+          ...state,
+          poll: payload      
+        }
+
+    case POLL_LOADED_FAIL: 
+        return {
+          ...state,
+          poll: null      
+        }
+
 
     default:
       return state;

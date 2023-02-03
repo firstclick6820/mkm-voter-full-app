@@ -24,8 +24,7 @@ API_URL = os.environ.get('API_URL', 'http://localhost:8000/')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-# DEBUG = os.getenv('DEBUG')
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mkm-voter.onrender.com']
@@ -266,7 +265,7 @@ SIMPLE_JWT = {
 
 
 # PRODUCTION = False
-PRODUCTION = False
+PRODUCTION = True
 SITE_NAME = "SuperVoter.com" 
 
 if PRODUCTION:

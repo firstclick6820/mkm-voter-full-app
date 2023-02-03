@@ -36,6 +36,7 @@ import Settings from './auth/profile/Settings'
 
 // import Content Pages
 import Polls from './polls/Polls'
+import Poll from './polls/Poll'
 
 
 
@@ -50,6 +51,7 @@ const Pages = () => {
                   <Routes>
                       <Route exact path="/" element={<Home />} />
                       <Route exact path="/polls" element={<Polls />} />
+                      <Route exact path="/polls/:pid/"  element={<Poll />} />
                       <Route exact path="/account/login" element={<Login />} />
                       <Route exact path="/account/register" element={<Register />} />
                       <Route exact path="/account/activate/:uid/:token" element={<Activate />} />
@@ -58,7 +60,7 @@ const Pages = () => {
                       <Route exact path="/account/password_confirm/:uid/:token" element={<PasswordResetConfirm />} />
                       <Route exact path="/account/password_confirm/complete" element={<PasswordResetComplete />} />
                       <Route exact path="/user/profile/:uid/" element={<Profile />} />
-                      <Route exact path="/user/settings" element={<Settings />} />
+                      <Route exact path="/user/settings/:uid/" element={<Settings />} />
                   </Routes>
             </MainLayout>
         </Provider>

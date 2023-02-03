@@ -21,7 +21,7 @@ const PollCard = ({poll, voted}) => {
                                             <div className="bg-red-600 w-12 h-12 rounded-full uppercase font-bold text-white">AD</div>
                                             <div className="ml-3 flex justify-start">
                                                 <p className="hover:underline decoration-2 hover:text-red-600 ">
-                                                    <Link to="/">{poll.created_by.email}</Link></p>
+                                                    <Link to={`/user/profile/${poll.created_by.id}`}>{poll.created_by.email}</Link></p>
                                                 <p 
                                                     className="text-sm text-gray-700 mt-1 ml-2">
                                                         ({CapitalizedFirstLetter(poll.created_by.account_type)})
@@ -32,11 +32,11 @@ const PollCard = ({poll, voted}) => {
 
 
                                     <div className="text-gray-700 text-lg px-6 py-4 flex justify-between">
-                                        <Link   to="/"
+                                        <Link   to={`/polls/${poll.id}/`}
                                                 className="hover:underline decoration-2 hover:text-red-600 font-bold">{poll.question}</Link>
                                         {voted ? 
                                                   <span className="text-gray-400 font-bold">Voted</span> 
-                                               :  <Link to="/" className="text-red-600 font-bold decoration-2 hover:underline">Vote</Link>} 
+                                               :  <Link to={`/polls/${poll.id}/`} className="text-red-600 font-bold decoration-2 hover:underline">Vote</Link>} 
                                     </div>
 
                                     <div className="px-6 py-4 border-t border-gray-200 flex justify-between">

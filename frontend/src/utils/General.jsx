@@ -11,3 +11,9 @@ export const HumanReadableDate = ({ date }) => {
 export const CapitalizedFirstLetter = (text) => {
   return <>{text.charAt(0).toUpperCase() + text.slice(1)}</>;
 };
+
+
+
+export const EmailFirstSecondLetters = (email) => {
+  return <>{email.charAt(0) + email.charAt(1) + email.charAt(2)}</>;
+};
