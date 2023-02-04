@@ -14,8 +14,6 @@ const ProfileCard = ({profile}) => {
 
 
   
-
-
   return (
         <>
             <div className="p-8 bg-white shadow mt-10">
@@ -24,18 +22,13 @@ const ProfileCard = ({profile}) => {
                     <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
 
                         <div>
-                                        <p className="font-bold text-gray-700 text-xl">1000</p>
-                                        <p className="text-gray-400">Votes</p>
+                            <p className="font-bold text-gray-700 text-xl">{profile.votes && profile.votes > 0 ? profile.votes : "0"}</p>
+                            <p className="text-gray-400">Votes</p>
                         </div>
 
                         <div>
-                                        <p className="font-bold text-gray-700 text-xl">200</p>
-                                        <p className="text-gray-400">Polls</p>
-                        </div>
-
-                        <div>
-                                        <p className="font-bold text-gray-700 text-xl">89</p>
-                                        <p className="text-gray-400">Followers</p>
+                            <p className="font-bold text-gray-700 text-xl">{profile.polls && profile.polls > 0 ? profile.polls : "0"}</p>
+                            <p className="text-gray-400">Polls</p>
                         </div>
                     </div>
 
@@ -48,13 +41,13 @@ const ProfileCard = ({profile}) => {
                     </div>
                         
                     <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-                        {isAuthenticated && authUser !== null && authUser.email === profile.user.email ? AuthUserLinks("/user/settings/:uid/") : VisitorUserLinks()}
+                        {isAuthenticated && authUser !== null && authUser.email === profile.user.email ? AuthUserLinks(`/user/settings/${authUser.id}/`) : VisitorUserLinks()}
                     </div>
 
                 </div>
                         
                 <div className="mt-20 text-center pb-12">
-                    <h1 className="text-lg font-medium text-gray-700">{!profile.fullname ? "Full Name" : profile.fullname}</h1>
+                    <h1 className="text-lg font-medium text-gray-700">{profile.fullname === "None None" ? "Full Name" : profile.fullname}</h1>
                     <h3 className="text-lg font-medium text-gray-700">({CapitalizedFirstLetter(profile.user.account_type)})</h3>
                     <p className="font-light text-gray-600 mt-3">{profile.address}</p>
                         

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
-
+import uuid
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -38,6 +38,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     objects = UserManager()
     
     ACCOUNT_TYPE_CHOICES = [
@@ -64,8 +65,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['account_type']
 
-    
-    
+
+
 
 
 
@@ -73,19 +74,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
   
+
     
+
+
     
     
 # Creating Profile
 class Profile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     
     bio = models.CharField(max_length=100, blank=True, null=True)
-    summary = models.TextField(blank=True)
+    summary = models.TextField(blank=True, null=True)
     date_of_birth = models.DateField(null=True, blank=True)
     address=models.CharField(max_length=255, blank=True, null=True)
     
-    date_of_joining = models.DateField(null=True, blank=True)
+    date_of_joining = models.DateTimeField(null=True, blank=True)
     
     first_name= models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
@@ -94,8 +99,17 @@ class Profile(models.Model):
     
     
     
+    # Get Full Name    
     def fullname(self):
         return "{} {}".format(self.first_name, self.last_name)
+    
+    # get all the votes
+    def votes(self):
+        return self.user.votes.count()
+    
+    # get all the polls
+    def polls(self):
+        return self.user.polls.count()
     
     #Return the user Email, khalid@mgail.com
     def __str__(self):

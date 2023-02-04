@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 
 // import custom components
-import {PollShowCase} from '../../components'
+import {PollShowCase, PlaceHolder} from '../../components'
 
 
 
@@ -34,7 +34,7 @@ const Home = () => {
                           <PollShowCase key={id} poll={poll} />
                         ))
                   ) : (
-                        <h1>No Data To Display</h1>
+                       <PlaceHolder placeholder="No Polls to Display"/>
                   )}
           
           </div>

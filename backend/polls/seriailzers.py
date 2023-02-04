@@ -13,7 +13,7 @@ class ChoiceSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Choice
-        fields = ('choice_text', 'votes', 'vote_percentage')
+        fields = ('id','choice_text', 'votes', 'vote_percentage')
 
     def get_vote_percentage(self, obj):
         return obj.vote_percentage()
@@ -38,8 +38,12 @@ class PollSerializer(serializers.ModelSerializer):
         model = Poll
         fields = ('id', 'question', 'end_date', 'is_active',  'views', 'created_by', 'choices', 'total_votes', 'voters',)
 
+
+
     def get_total_votes(self, obj):
         return obj.total_votes()
+
+
 
     def get_voters(self, obj):
         return [vote.user.email for vote in obj.votes.all()]

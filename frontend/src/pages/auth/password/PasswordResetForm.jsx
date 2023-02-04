@@ -54,7 +54,7 @@ function PasswordResetForm({password_reset}) {
                             value={values.email}
                             error={touched.email && errors.email}
                             helpertext={touched.email && errors.email}
-                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" />
         
                             {errors.email && touched.email ? (
                                     <div className="text-red-500">{errors.email}</div>) : null}
@@ -68,7 +68,7 @@ function PasswordResetForm({password_reset}) {
 
                         <button type="submit" 
                             disabled={Object.keys(errors).length > 0 || !values.email}
-                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
+                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}>
                             
                             Reset Password
                     </button>

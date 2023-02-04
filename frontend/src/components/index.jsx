@@ -15,3 +15,4 @@ export {default as ProfileCard } from './profile/ProfileCard'
 
 // export general components
 export {default as PostCard}  from './general/SideCard'
+export {default as PlaceHolder} from './general/PlaceHolder'

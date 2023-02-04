@@ -62,7 +62,7 @@ function PasswordResetConfirmForm({action}) {
                             value={values.password}
                             error={touched.password && errors.password}
                             helpertext={touched.password && errors.password}
-                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" />
 
                             {errors.password && touched.password ? (
                                     <div className="text-red-500">{errors.password}</div>) : null}
@@ -70,7 +70,7 @@ function PasswordResetConfirmForm({action}) {
 
 
                     <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        <label className="block mb-2 text-sm font-medium text-gray-900 "
                             htmlFor='confirm_password'>Confirm Password</label>
                         <Field
                             required
@@ -84,7 +84,7 @@ function PasswordResetConfirmForm({action}) {
                             value={values.confirm_password}
                             error={touched.confirm_password && errors.confirm_password}
                             helpertext={touched.confirm_password && errors.confirm_password}
-                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" />
 
                             {errors.confirm_password && touched.confirm_password ? (
                                     <div className="text-red-500">{errors.confirm_password}</div>) : null}
@@ -95,7 +95,7 @@ function PasswordResetConfirmForm({action}) {
 
                         <button type="submit" 
                             disabled={Object.keys(errors).length > 0 || !values.password || !values.confirm_password}
-                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
+                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}>
                             Confirm Changes
                     </button>
 

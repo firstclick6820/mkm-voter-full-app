@@ -51,7 +51,6 @@ class Choice(models.Model):
 
 
 
-
 class Vote(models.Model):
     question = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='votes')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes')
@@ -59,11 +58,14 @@ class Vote(models.Model):
     ip_address = models.GenericIPAddressField()
     vote_date = models.DateTimeField(auto_now_add=True)
 
-
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'question'], name='unique_vote')
+        ]
 
     def __str__(self):
         return self.choice.choice_text
-    
+
     
 
 

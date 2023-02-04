@@ -17,6 +17,7 @@ const Profile = () => {
   const profiler = useSelector(state => state.auth.userProfile)
   const  { uid } = useParams();
 
+  
 
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const Profile = () => {
     }, [dispatch, uid])
 
 
-    if(profiler === null) return null;
+    if(profiler === null) return <Navigate to="/" />;
 
     return (
         <>

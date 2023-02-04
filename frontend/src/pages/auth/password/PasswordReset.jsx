@@ -22,7 +22,7 @@ const PasswordReset = ({reset_password}) => {
     else {
         return (
             <main id='content'>
-                <div className="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white min-h-96">
+                <div className="section pt-24 pb-8 md:pt-16 md:pb-0 bg-white min-h-96">
                         <div className="container xl:max-w-7xl mx-auto px-4">
                             <div className="flex justify-center px-6 my-12">
                                 <div className="w-full xl:w-3/4 lg:w-11/12 flex">

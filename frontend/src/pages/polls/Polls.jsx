@@ -1,18 +1,28 @@
 import React, { useEffect } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
 // import custom components
-import {VoteCard, PollCard , PostCard} from '../../components'
+import {VoteCard, PollCard , PostCard, PlaceHolder} from '../../components'
 
-
+import { loadPolls } from '../../actions/polls'
 
 const Polls = () => {
+  const dispatch = useDispatch();
+
   const isAuthenticated = useSelector(state=> state.auth.isAuthenticated)
   const authUser = useSelector(state => state.auth.user)
   const polls = useSelector(state => state.polls.polls)
+
+
+  useEffect(()=> {
+    dispatch(loadPolls())
+  }, [dispatch])
+
+  if(polls === null) return null;
+
 
   return (
     <>
@@ -38,7 +48,7 @@ const Polls = () => {
                         return emailFound ? <PollCard key={id} poll={poll} voted={true}/> : <PollCard key={id} poll={poll} voted={false} />;
                       })
                     ) : (
-                      <h1>No Data To Display</h1>
+                       <PlaceHolder placeholder="No Polls" />
                     )}
 
             

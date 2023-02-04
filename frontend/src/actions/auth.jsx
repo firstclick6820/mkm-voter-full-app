@@ -127,12 +127,19 @@ export const load_user_profile = (id) => async (dispatch) => {
         try {
             const res = await axios.get(`api/users/profile/${id}/`)
           
-            dispatch({
-                type: USER_PROFILE_LOADED_SUCCES,
-                payload: res.data,
-                
-            });
- 
+            if(res.data.success) {
+                dispatch({
+                    type: USER_PROFILE_LOADED_SUCCES,
+                    payload: res.data.data,
+                    
+                });
+            }else {
+                dispatch({
+                    type: USER_PROFILE_LOADED_FAIL,
+                    
+                });
+            }
+            
           
         }
         catch(err){

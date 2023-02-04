@@ -1,19 +1,79 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 // import formik and yup
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
 
+import { useSelector, useDispatch } from 'react-redux';
+import { load_user_profile } from '../../../actions/auth';
 
-import { Link } from 'react-router-dom';
 
-const SettingsForm = () => {
+import axios from '../../../assets/api/api'
+import { Navigate , useNavigate} from 'react-router-dom';
+
+const SettingsForm = ({id}) => {
+    const history = useNavigate();
+    const [updated, setUpdated] = useState(false)
+    const dispatch  = useDispatch();
+    const authUser = useSelector(state=> state.auth.user)
+    const isAuthenticated = useSelector(state=> state.auth.isAuthenticated)
+    const authorized = (authUser !== null && authUser.id === id) ? true : false
+
+    const userProfile = useSelector(state => state.auth.userProfile)
+
+
+    // Initial Values for the formik form
+    const initialValues = {
+        account_type: userProfile.user.account_type,
+        first_name: userProfile.first_name || "",
+        last_name: userProfile.last_name || "",
+        bio : userProfile.bio || "",
+        summary: userProfile.summary || "",
+        address: userProfile.address || ""
+      };
+
+      
+
 
     const handleFormSubmit = (values, {resetForm}) => {
+        if(!values) return ;  
 
-    
-        
+        const first_name = values.first_name;
+        const last_name = values.last_name;
+        const bio = values.bio;
+        const summary = values.summary;
+        const address = values.address;
+
+        const body = {
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'bio': bio,
+                    'summary': summary,
+                    'address': address }
+
+        axios.patch(`/api/users/settings/${authUser.id}/`, body)
+        .then((res)=> {
+            if(res.data.success){
+                setUpdated(true)
+            }
+        })
+        .catch((err) => {
+            setUpdated(false)
+            console.log(err)
+        })
+
+
     }
+
+
+    useEffect(() => {
+        dispatch(load_user_profile(authUser.id))
+        updated ? history(`/user/profile/${authUser.id}/`) : history(`/user/settings/${authUser.id}/`)
+    }, [dispatch, updated])
+
+
+    if(userProfile === null && !isAuthenticated && !authorized) return <Navigate to="/account/login/" />;
+
   return (
     <>
         <Formik
@@ -46,7 +106,7 @@ const SettingsForm = () => {
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.account_type}
-                                        error={!!touched.account_type && !!errors.account_type}
+                                        error={touched.account_type && errors.account_type}
                                         helpertext={touched.account_type && errors.account_type}
                                         className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                 
@@ -69,7 +129,7 @@ const SettingsForm = () => {
                                             onBlur={handleBlur}
                                             onChange={handleChange}
                                             value={values.first_name}
-                                            error={!!touched.first_name && !!errors.first_name}
+                                            error={touched.first_name && errors.first_name}
                                             helpertext={touched.first_name && errors.first_name}/>
                                             {errors.first_name && touched.first_name ? (
                                             <div className="text-red-500">{errors.first_name}</div>) : null}
@@ -88,7 +148,7 @@ const SettingsForm = () => {
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.last_name}
-                                        error={!!touched.last_name && !!errors.last_name}
+                                        error={touched.last_name && errors.last_name}
                                         helpertext={touched.last_name && errors.last_name}/>
                                         {errors.last_name && touched.last_name ? (
                                         <div className="text-red-500">{errors.last_name}</div>) : null}
@@ -109,7 +169,7 @@ const SettingsForm = () => {
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.address}
-                                        error={!!touched.address && !!errors.address}
+                                        error={touched.address && errors.address}
                                         helpertext={touched.address && errors.address}/>
                                         {errors.address && touched.address ? (
                                         <div className="text-red-500">{errors.address}</div>) : null}
@@ -127,7 +187,7 @@ const SettingsForm = () => {
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.bio}
-                                        error={!!touched.bio && !!errors.bio}
+                                        error={touched.bio && errors.bio}
                                         helpertext={touched.bio && errors.bio}/>
                                         {errors.bio && touched.bio ? (
                                         <div className="text-red-500">{errors.bio}</div>) : null}
@@ -146,7 +206,7 @@ const SettingsForm = () => {
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.summary}
-                                        error={!!touched.summary && !!errors.summary}
+                                        error={touched.summary && errors.summary}
                                         helpertext={touched.summary && errors.summary}/>
                                         {errors.summary && touched.summary ? (
                                         <div className="text-red-500">{errors.summary}</div>) : null}
@@ -196,14 +256,7 @@ const checkoutSchema = yup.object().shape({
   
 
 
-const initialValues = {
-    account_type: "",
-    first_name: "",
-    last_name: "",
-    bio : "",
-    summary: "",
-    address: ""
-  };
+
 
 {/* <form className="mt-6 border-gray-400" action="" method="POST">             
     <div className='flex flex-wrap -mx-3 mb-6'> 
