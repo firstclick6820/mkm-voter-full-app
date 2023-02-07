@@ -36,6 +36,9 @@ export const LOGOUT = 'LOGOUT';
 
 
 
+export const ERROR_MESSAGE_SUCCESS = 'ERROR_MESSAGE_SUCCESS'
+export const ERROR_MESSAGE_FAIL = 'ERROR_MESSAGE_FAIL'
+
 
 //  ----------------------------------------------- POLLS -----------------------------------------------
 export const POLLS_LOADED_SUCCESS = 'POLLS_LOADED_SUCCESS'
@@ -44,4 +47,6 @@ export const POLLS_LOADED_FAIL = 'POLLS_LOADED_FAIL'
 
 export const POLL_LOADED_SUCCESS = "POLL_LOADED_SUCCESS"
 export const POLL_LOADED_FAIL = "POLL_LOADED_FAIL"
+
+
 

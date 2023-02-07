@@ -5,16 +5,21 @@ import { Link , Navigate} from 'react-router-dom';
 import LoginForm from './LoginForm';
 
 
-import { connect } from 'react-redux';
-import { login } from '../../../actions/auth';
+import { connect, useSelector } from 'react-redux';
 
 
 
 
-const Login = ({login, isAuthenticated}) => {
-    
+
+const Login = () => {
+    const isAuthenticated = useSelector(state=> state.auth.isAuthenticated)
+
+
+
+
+
     if(isAuthenticated){
-        return  <Navigate to="/" />
+        return  <Navigate to='/' />
     }
     else {
 
@@ -29,7 +34,7 @@ const Login = ({login, isAuthenticated}) => {
                                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                                             Login
                                         </h1>
-                                        <LoginForm login={login}/>
+                                        <LoginForm />
                                     </div>
                                 </div>
                             </div>
@@ -41,10 +46,11 @@ const Login = ({login, isAuthenticated}) => {
     };
 };
 
-const mapStateToProps = state => {
-    return {
-        isAuthenticated: state.auth.isAuthenticated
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         isAuthenticated: state.auth.isAuthenticated
+//     };
+// };
 
-export default connect(mapStateToProps, { login })(Login);
+// export default connect(mapStateToProps, { login })(Login);
+export default Login;

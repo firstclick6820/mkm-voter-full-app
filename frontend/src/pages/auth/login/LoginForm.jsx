@@ -6,33 +6,44 @@ import React, {useContext, useState, useEffect} from 'react'
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
 
-
+import {useSelector, useDispatch} from 'react-redux'
 
 // import react router dom components
 import { Link , Navigate} from 'react-router-dom';
+import { login } from '../../../actions/auth';
 
 
+import axios from '../../../assets/api/api'
 
-function LoginForm({login}) {
+
+function LoginForm() {
+  const [loginFailed, setLoginfailed] = useState(false)
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const authUser = useSelector(state=> state.auth.user)
+  const dispatch = useDispatch();
 
   const handleFormSubmit = (values, {resetForm}) => {
     const email = values['email']
     const pwd = values['password']
 
-
-    if(login(email, pwd)){
-      resetForm()
-      return  <Navigate to='/' />
-    }
-    else {
-            console.log('Incorrect Password')
-    }
+    
+    dispatch(login(email, pwd))
+    .then((response) => {
+      if (response) {
+        resetForm();
+      } else {
+        setLoginfailed(true);
+        setTimeout(() => {
+          setLoginfailed(false);
+        }, 2000);
+      }
+    });
     
   }
 
+ 
 
-  
-
+  if(isAuthenticated) return <Navigate to={`/user/profile/${authUser.id}`} />
 
 
   return (
@@ -94,21 +105,28 @@ function LoginForm({login}) {
                                     <div className="text-red-500">{errors.password}</div>) : null}
                     </div>
 
+
+                    <div className="">
+                        {loginFailed ? (
+                          <div className="text-red-500">Incorrect Password or Email, Try Again!</div>) : null}
+                    </div>
+
+
                     <div>
                         <Link to="/account/password_reset"  
                               className="hover:underline decoration-2 hover:text-red-600">
                               Forgot Password
                         </Link>
                     </div>
-
+                            
 
                     
                     <button type="submit" 
-                            disabled={Object.keys(errors).length > 0 || !values.email || !values.password}
-                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `}>
-                            
+                            disabled={!values.email || !values.password || Object.keys(errors).length > 0 }
+                            className={`${(!values.email || !values.password || Object.keys(errors).length) ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `}>
                             Login
                     </button>
+
 
 
         
@@ -130,6 +148,24 @@ function LoginForm({login}) {
 
 export default LoginForm;
 
+
+
+
+const validateEmail = async (email) => {
+
+  const response = await axios.get(`api/users/check_email_exists/${email}/`);
+  const isEmailAvailable = response.data.exists;
+    
+    if (!isEmailAvailable) {
+      throw new yup.ValidationError('No such account found associated with this email.', email, 'email');
+    }
+
+    return response
+  };
+
+
+
+
 const checkoutSchema = yup.object().shape({
 
   
@@ -137,8 +173,8 @@ const checkoutSchema = yup.object().shape({
                  .string()
                  .email('Invalid email')
                  .matches(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,'Invalid email')
-                 .required("Email is required!"),
-                //  .test('email', 'This email is already taken.', validateEmail),
+                 .required("Email is required!")
+                 .test('email', 'No such account found associated with this email.', validateEmail),
     password:  yup
                  .string()
                  .required("Password is required")

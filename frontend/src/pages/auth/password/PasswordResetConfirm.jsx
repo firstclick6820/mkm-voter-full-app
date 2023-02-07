@@ -3,15 +3,8 @@ import React, {useState, useEffect} from 'react'
 import PasswordResetConfirmForm from './PasswordResetConfirmForm'
 
 
-// import react-redux components
-import { connect } from 'react-redux'
 
-
-// import actions
-import { reset_password_confirm } from './../../../actions/auth'
-
-
-const PasswordResetConfirm = ({ match, reset_password_confirm }) => {
+const PasswordResetConfirm = () => {
 
 
 
@@ -33,7 +26,7 @@ const PasswordResetConfirm = ({ match, reset_password_confirm }) => {
                                         </p>
                                     </div>
 
-                                    <PasswordResetConfirmForm action={reset_password_confirm}/>
+                                    <PasswordResetConfirmForm/>
 
                                 </div>
 
@@ -52,5 +45,5 @@ const PasswordResetConfirm = ({ match, reset_password_confirm }) => {
     )
 };
 
-export default connect(null, {reset_password_confirm})(PasswordResetConfirm);
+export default PasswordResetConfirm;
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Link , Navigate} from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 
 
 // import actions
@@ -14,7 +14,9 @@ import SignUpForm from './SignUpForm'
 
 
 
-const Register = ({signup, isAuthenticated}) => {
+const Register = () => {
+  const isAuthenticated = useSelector(state=> state.auth.isAuthenticated)
+
 
   if(isAuthenticated) {
       return <Navigate to="/" />
@@ -24,7 +26,7 @@ const Register = ({signup, isAuthenticated}) => {
         <main id="content">
           <div className="section pt-24 pb-8 md:pt-16 md:pb-0 bg-white min-h-96">
                 <div className="container xl:max-w-6xl mx-auto px-4">
-                    <section className=" dark:bg-gray-900">
+                    <section className="">
                         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                             <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0">
                                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -33,7 +35,7 @@ const Register = ({signup, isAuthenticated}) => {
                                         Create and account
                                     </h1>
 
-                                    <SignUpForm  action={signup}/>
+                                    <SignUpForm/>
                                 </div>
                             </div>
                         </div>
@@ -46,12 +48,9 @@ const Register = ({signup, isAuthenticated}) => {
   }
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
 
 
-export default connect(mapStateToProps, {signup})(Register);
 
+export default Register;
 
 

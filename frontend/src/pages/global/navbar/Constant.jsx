@@ -1,9 +1,16 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 
 import { Link } from "react-router-dom";
 
 
-export const authLinks = (id, loggout) => {
+import { loggout } from "../../../actions/auth";
+
+import { useDispatch } from "react-redux";
+
+export const authLinks = (id) => {
+     const dispatch = useDispatch();
+
+
     return (
         <Fragment>
           <li className="relative hover:text-black">
@@ -12,7 +19,7 @@ export const authLinks = (id, loggout) => {
           </li>
 
           <li className="relative hover:text-black">
-              <a onClick={loggout}
+              <a onClick={()=> {dispatch(loggout())}}
                  className="hover:underline decoration-2 hover:text-red-600 block py-3 lg:py-7 px-6">Logout</a>                  
           </li>
         </Fragment>

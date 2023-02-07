@@ -3,36 +3,83 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
-
-    
+from datetime import timedelta
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.views import View
 
+from rest_framework import status
 
 from accounts.serializers import UserCreateSerializer
 from .models import Poll, Choice, Vote
-from .seriailzers import PollSerializer, ChoiceSerializer, VoteSerializer
+from .seriailzers import PollSerializer, ChoiceWriteSerializer, VoteSerializer, PollWriteSerializer
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
 
 
+def remove_empty_choices(choices):
+    return [choice for choice in choices if choice['choice_text']]
+
+class PollAPI(APIView):
+    
+    # Get a Poll or List of a Poll
+    def get(self, request, id=None):
+        if id:
+            poll = get_object_or_404(Poll.objects.all(), id=id)
+            serializer = PollSerializer(poll)
+            return Response(serializer.data)
+        else:
+            polls = Poll.objects.all().order_by('-created_at')
+            serializer = PollSerializer(polls, many=True)
+            return Response(serializer.data)
 
 
 
-class PollList(generics.ListAPIView):
-    queryset = Poll.objects.all().order_by('-created_at')
-    serializer_class = PollSerializer
+    def post(self, request):
+        data = request.data.copy()
+            
+        days = data.pop('days', None)
+        hours = data.pop('hours', None)
+        minutes = data.pop('minutes', None)
+            
+        end_date = timezone.now() + timedelta(days=int(days), hours=int(hours), minutes=int(minutes))
+        data['end_date'] = end_date
+        
+        user = request.data['created_by']
+        
+        data['created_by'] = user['id']
+        data['choices'] = remove_empty_choices(data['choices'])
+        
+        serializer = PollWriteSerializer(data=data)
+        if serializer.is_valid():
+            poll = serializer.save()
+            return Response({'success': 'Poll created successfully'})
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+ 
 
 
 
-class PollDetail(generics.RetrieveAPIView):
-    queryset = Poll.objects.all()
-    serializer_class = PollSerializer
 
-    def get_object(self):
-        return get_object_or_404(self.queryset, id=self.kwargs['id'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

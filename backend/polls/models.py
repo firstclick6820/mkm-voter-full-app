@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-
 class Poll(models.Model):
     question = models.CharField(max_length=255)
     end_date = models.DateTimeField()
@@ -16,7 +15,9 @@ class Poll(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-    
+
+        
+        
     def total_votes(self):
         choices = self.choices.all()
         if choices:
@@ -24,7 +25,8 @@ class Poll(models.Model):
             return int(total_votes)
         return 0
 
-    
+    def user_details(self):
+        return self.created_by
     
     def __str__(self):
         return self.question
@@ -35,16 +37,18 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     
-    
-    
     class Meta:
         unique_together = ('question', 'choice_text')
+
     
     def vote_percentage(self):
         total_votes = sum(choice.votes for choice in self.question.choices.all())
         if total_votes:
             return int((self.votes / total_votes) * 100)
         return 0
+    
+    
+   
 
     def __str__(self):
         return self.choice_text

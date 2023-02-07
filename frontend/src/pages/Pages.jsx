@@ -37,6 +37,7 @@ import Settings from './auth/profile/Settings'
 // import Content Pages
 import Polls from './polls/Polls'
 import Poll from './polls/Poll'
+import CreatePoll from './polls/CreatePoll'
 
 
 
@@ -52,6 +53,7 @@ const Pages = () => {
                       <Route exact path="/" element={<Home />} />
                       <Route exact path="/polls" element={<Polls />} />
                       <Route exact path="/polls/:pid/"  element={<Poll />} />
+                      <Route exact path="/polls/create/" element={<CreatePoll />} />
                       <Route exact path="/account/login" element={<Login />} />
                       <Route exact path="/account/register" element={<Register />} />
                       <Route exact path="/account/activate/:uid/:token" element={<Activate />} />

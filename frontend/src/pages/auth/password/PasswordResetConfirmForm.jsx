@@ -6,28 +6,41 @@ import * as yup from "yup";
 
 import { Link, Navigate, useParams} from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { reset_password_confirm } from '../../../actions/auth';
+
 
 function PasswordResetConfirmForm({action}) {
-  const { uid, token } = useParams();
-  const [done, setDone] = useState(false)
+      const dispatch = useDispatch();
 
-  const handleFormSubmit = (values, {resetForm}) => {
-   
-        // const uid = match.params.uid;
-        // const token = match.params.token;
-        
-        const new_password = values['password']
-        const re_new_password = values['confirm_password']
+      const { uid, token } = useParams();
+      const [done, setDone] = useState(false)
 
-        action(uid, token, new_password, re_new_password)
-        resetForm();
-        setDone(true)
+      const handleFormSubmit = (values, {resetForm}) => {
+      
+            
+            const new_password = values['password']
+            const re_new_password = values['confirm_password']
 
-  }
+            dispatch(reset_password_confirm(uid, token, new_password, re_new_password))
+            .then((response) => {
+                if (response) {
+                    setDone(true)
+                    resetForm()
+                } else {
+                    console.log('Error')
+                    // setLoginfailed(true);
+                    // setTimeout(() => {
+                    // setLoginfailed(false);
+                    // }, 2000);
+                }
+            });
 
-  if(done) {
-    return <Navigate to="/account/password_confirm/complete" />
-  }
+      }
+
+      if(done) {
+        return <Navigate to="/account/password_confirm/complete" />
+      }
 
 
 
@@ -95,11 +108,11 @@ function PasswordResetConfirmForm({action}) {
 
                         <button type="submit" 
                             disabled={Object.keys(errors).length > 0 || !values.password || !values.confirm_password}
-                            className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}>
+                            className={`${(errors && Object.keys(errors).length || !values.password || !values.confirm_password ) ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}>
                             Confirm Changes
-                    </button>
+                        </button>
 
-
+          
                     </div>
 
 

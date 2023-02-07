@@ -8,7 +8,7 @@ const PlaceHolder = ({placeholder}) => {
   return (
     <>
         <main id='content'>
-            <div className="section relative z-0">
+            <div className="section relative z-0 mt-20">
                 <div className="container mx-auto text-left">
                     {placeholder}
                 </div>

@@ -25,6 +25,11 @@ import {
     
     LOGGOUT,
 
+    ERROR_MESSAGE_SUCCESS,
+    ERROR_MESSAGE_FAIL
+
+    
+
 
 } from '../actions/types';
 
@@ -168,39 +173,22 @@ export const login = (email, password) => async dispatch => {
     const body = JSON.stringify({ email, password });
   
     try {
-        
       const res = await axios.post('auth/jwt/create/', body, config);
-      
   
       if (res.status === 200) {
-
-            dispatch({
-            type: LOGIN_SUCCESS,
-            payload: res.data
-            });
-        
-            dispatch(load_user());
-    
-            return true;
-
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+        dispatch(load_user());
+        return true;
       } else {
-
-            dispatch({
-            type: LOGIN_FAIL
-            });
-
-            return false;
+        dispatch({ type: LOGIN_FAIL });
+        return false;
       }
     } catch (err) {
-
-            dispatch({
-                type: LOGIN_FAIL
-            });
-        
-            return false;
+      dispatch({ type: LOGIN_FAIL });
+      return false;
     }
   };
-
+  
 
 
 
@@ -216,15 +204,25 @@ export const signup = (account_type, email, password, re_password) => async disp
     const body = JSON.stringify({ account_type, email, password, re_password });
     try {
         const res = await axios.post('/auth/users/', body, config);
-
-        dispatch({
-            type: SIGNUP_SUCCESS,
-            payload: res.data
-        });
+        
+        if (res.status === 201 ){
+            dispatch({
+                type: SIGNUP_SUCCESS,
+                payload: res.data
+            });
+            return true;
+        }
+        else {
+            dispatch({
+                type: SIGNUP_FAIL
+            })
+            return false;
+        }
     } catch (err) {
         dispatch({
             type: SIGNUP_FAIL
         })
+        return false;
     }
 };
 
@@ -255,7 +253,7 @@ export const verify = (uid, token) => async dispatch => {
 
 
 // Loggout 
-export const loggout = () => dispatch => {
+export const loggout = () =>  dispatch => {
     dispatch({
         type: LOGGOUT
     })
@@ -279,16 +277,21 @@ export const reset_password = (email) =>  async dispatch =>{
     try {
         const res = await axios.post('/auth/users/reset_password/', body, config);
 
-        dispatch({
-            type: PASSWORD_RESET_SUCCESS
-        });
+        if(res.status === 204){
+            dispatch({type: PASSWORD_RESET_SUCCESS});
+            return true;
+
+        }else {
+            dispatch({type: PASSWORD_RESET_FAIL});
+            return false;
+        }
 
     }
     catch(err) {
 
-        dispatch({
-            type:PASSWORD_RESET_FAIL
-        });
+        dispatch({type:PASSWORD_RESET_FAIL});
+        return false;
+
     };
 }
 
@@ -309,15 +312,21 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
     try {
         const res = await axios.post('/auth/users/reset_password_confirm/', body, config);
 
-        dispatch({
-            type: PASSWORD_RESET_CONFIRM_SUCCESS
-        });
+
+        if(res.status === 204){
+            dispatch({type: PASSWORD_RESET_CONFIRM_SUCCESS});
+            return true;
+
+        }else {
+            dispatch({type: PASSWORD_RESET_CONFIRM_FAIL});
+            return false;
+        }
+
+
 
     }
     catch(err) {
-
-        dispatch({
-            type:PASSWORD_RESET_CONFIRM_FAIL
-        });
+        dispatch({type: PASSWORD_RESET_CONFIRM_FAIL});
+        return false;
     };
 }

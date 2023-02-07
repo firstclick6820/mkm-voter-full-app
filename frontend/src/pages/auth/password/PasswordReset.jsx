@@ -2,24 +2,14 @@ import React, {useState} from 'react'
 
 
 // import React Router Components
-import { Link, Navigate } from 'react-router-dom'
+import {Navigate } from 'react-router-dom'
 
-
-import { reset_password } from '../../../actions/auth'
-import { connect } from 'react-redux'
 
 
 import PasswordResetForm from './PasswordResetForm'
 
-const PasswordReset = ({reset_password}) => {
-     const [requestSent, setRequestSent] = useState(false)
-
-
-    if(requestSent){
-        
-        return  <Navigate to="/account/password_reset/done" />
-    }
-    else {
+const PasswordReset = () => {
+   
         return (
             <main id='content'>
                 <div className="section pt-24 pb-8 md:pt-16 md:pb-0 bg-white min-h-96">
@@ -41,9 +31,8 @@ const PasswordReset = ({reset_password}) => {
                                             </p>
                                         </div>
 
-                                        <PasswordResetForm password_reset={reset_password}/>
+                                        <PasswordResetForm/>
 
-                                    
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +40,7 @@ const PasswordReset = ({reset_password}) => {
                 </div>
             </main>
         )
-    }
 };
 
-export default connect(null, {reset_password})(PasswordReset);
+export default PasswordReset;
 

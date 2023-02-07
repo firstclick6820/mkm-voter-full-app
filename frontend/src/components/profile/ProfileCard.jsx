@@ -41,7 +41,13 @@ const ProfileCard = ({profile}) => {
                     </div>
                         
                     <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-                        {isAuthenticated && authUser !== null && authUser.email === profile.user.email ? AuthUserLinks(`/user/settings/${authUser.id}/`) : VisitorUserLinks()}
+                        {isAuthenticated && authUser !== null && authUser.email === profile.user.email ? 
+                        (
+                            
+                                AuthUserLinks(`/user/settings/${authUser.id}/`, "Edit")
+                        
+                        ) 
+                                                                                                        : VisitorUserLinks()}
                     </div>
 
                 </div>

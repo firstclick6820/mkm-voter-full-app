@@ -1,12 +1,12 @@
 import React, {Fragment} from "react"
 import { Link } from "react-router-dom"
 
-export const AuthUserLinks = (to) => {
+export const AuthUserLinks = (to, name) => {
     return (
         <Fragment>
             <Link   to={to}
                     className="text-white py-3 px-3 hover:underline decoration-2 rounded bg-red-600 hover:bg-white hover:text-red-600 cursor-pointer shadow hover:shadow-lg font-bold transition">
-                    Edit
+                    {name}
             </Link>
         </Fragment>
     )

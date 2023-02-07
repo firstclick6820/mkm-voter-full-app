@@ -2,8 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import {HumanReadableDate, CapitalizedFirstLetter} from '../../utils/General'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 const PollCard = ({poll, voted}) => {
+    const isAuthenticated = useSelector(state=> state.auth.isAuthenticated)
+    const authUser = useSelector(state=> state.auth.user)
 
 
 
@@ -17,16 +21,41 @@ const PollCard = ({poll, voted}) => {
                         <div className="bg-white shadow-lg rounded-lg overflow-hidden mb-10 justify-start">
 
                                     <div className="bg-gray-200 px-6 py-4">
-                                        <div className="flex items-center pt-3">
-                                            <div className="bg-red-600 w-12 h-12 rounded-full uppercase font-bold text-white">AD</div>
-                                            <div className="ml-3 flex justify-start">
-                                                <p className="hover:underline decoration-2 hover:text-red-600 ">
-                                                    <Link to={`/user/profile/${poll.created_by.id}`}>{poll.created_by.email}</Link></p>
-                                                <p 
-                                                    className="text-sm text-gray-700 mt-1 ml-2">
-                                                        ({CapitalizedFirstLetter(poll.created_by.account_type)})
-                                                </p>
+                                        <div className="flex justify-between pt-3">
+                                            <div className="flex  justify-center ">
+                                                <div className="bg-red-600 w-12 h-12 rounded-full uppercase font-bold text-white">AD</div>
+                                                <div className="flex ml-3">
+                                        
+                                                        <p className="hover:underline decoration-2 hover:text-red-600 ">
+                                                            <Link to={`/user/profile/${poll.created_by.id}`}>{poll.created_by.email}</Link></p>
+                                                        <p 
+                                                            className="text-sm text-gray-700 mt-1 ml-2">
+                                                                ({CapitalizedFirstLetter(poll.created_by.account_type)})
+                                                        </p>
+                                                
+                                                    
+                                                </div>
                                             </div>
+                                            {(isAuthenticated && authUser && authUser !== null && authUser.email === poll.created_by.email) ? 
+                                            (
+                                                <div className="right">
+                                                    <div className="flex justify-center gap-2">
+                                                        <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
+                                                            <a onClick={()=> {}} >Edit</a>
+                                                        </p>
+
+                                                        <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
+                                                            <a onClick={()=> {}} >Delete</a>
+                                                        </p>
+                    
+                                                    </div>
+                                                </div>
+                                            ): ""
+                                            }
+
+                                            
+                                            
+
                                         </div>
                                     </div>
 
@@ -62,7 +91,7 @@ const PollCard = ({poll, voted}) => {
 
                                     <div className="px-6 py-4 border-t border-gray-200 flex justify-between">
                                         <p>Votes:  <span className="ml-2 font-bold">{poll.total_votes}</span></p>
-                                        {/* <p>Views:  <span className="font-bold">{poll.views} </span></p> */}
+                                      
                                         <p>Status:<span className="ml-2 font-bold">{poll.is_active ? " Active" : " InActive"} </span></p>
                                     </div>
                         </div>

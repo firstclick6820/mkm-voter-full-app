@@ -8,14 +8,19 @@ import * as yup from "yup";
 
 import { Link, Navigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
 
 // import axios
 import axios from '../../../assets/api/api'
 
 
-function SignUpForm({action}) {
+import { signup } from '../../../actions/auth';
+
+
+function SignUpForm() {
     const [accountCreated, setAccountCreated] = useState(false)
 
+    const dispatch = useDispatch();
 
 
     const handleFormSubmit = (values, {resetForm}) => {
@@ -25,9 +30,21 @@ function SignUpForm({action}) {
         const account_type = values['account_type']
         
 
-        action(account_type, email, password, re_password)
-        setAccountCreated(true)
-        resetForm()
+        
+        dispatch(signup(account_type, email, password, re_password))
+        .then((response) => {
+            if (response) {
+                setAccountCreated(true)
+                resetForm()
+            } else {
+                console.log('Error')
+                // setLoginfailed(true);
+                // setTimeout(() => {
+                // setLoginfailed(false);
+                // }, 2000);
+            }
+        });
+
         
     }
 
@@ -163,9 +180,12 @@ function SignUpForm({action}) {
 
                             <button type="submit" 
                                     disabled={Object.keys(errors).length > 0 || !values.account_type || !values.email || !values.password || !values.re_password}
-                                    className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `}>
+                                    className={`${(!values.account_type || !values.email || !values.password || !values.re_password || Object.keys(errors).length) ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `}>
                                     Create an account
                             </button>
+
+                            
+
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">Already have an account?
                                 <Link   to="/account/login" 
                                         className="hover:underline decoration-2 hover:text-red-600 ml-2">

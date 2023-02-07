@@ -49,7 +49,7 @@ export default function(state= intialState, action) {
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
+                isAuthenticated: true
 
             }
 
@@ -57,7 +57,9 @@ export default function(state= intialState, action) {
         case AUTHENTICATED_FAIL:
             return {
                 ...state,
-                isAuthenticated: false,
+                isAuthenticated: false
+
+                
                     
             }
 
@@ -69,7 +71,7 @@ export default function(state= intialState, action) {
                 ...state,
                 isAuthenticated: true,
                 access: payload.access,
-                refresh: payload.refresh
+                refresh: payload.refresh,
             }
 
 
@@ -79,6 +81,7 @@ export default function(state= intialState, action) {
             return {
                 ...state,
                 isAuthenticated: false,
+   
             }
 
 
@@ -95,6 +98,7 @@ export default function(state= intialState, action) {
                 access: null,
                 refresh: null,
                 user:null,
+    
 
             }
 
@@ -105,7 +109,8 @@ export default function(state= intialState, action) {
         case LOAD_USER_SUCCESS:
             return {
                 ...state,
-                user: payload
+                user: payload,
+             
             }
 
 

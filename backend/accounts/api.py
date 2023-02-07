@@ -50,36 +50,6 @@ class UserProfileListCreateView(ListCreateAPIView):
 
 
 
-# class userProfileDetailView(APIView):
-#     queryset=Profile.objects.all()
-#     serializer_class=userProfileSerializer
-#     lookup_field = 'id'
-
-#     def get(self, request, id):
-#         profile = self.get_object(id)
-#         serializer = userProfileSerializer(profile)
-#         return Response(serializer.data)
-
-#     def put(self, request, id):
-#         profile = self.get_object(id)
-#         serializer = userProfileSerializer(profile, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#     def delete(self, request, id):
-#         profile = self.get_object(id)
-#         profile.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-
-#     def get_object(self, id):
-#         try:
-#             return self.queryset.get(id=id)
-#         except Profile.DoesNotExist:
-#             raise Http404
-
-
 
 
 
@@ -122,7 +92,7 @@ class userProfileAPIVIEW(APIView):
 
 
 
-
+# ============================================================================ Check Email
 # Check whether the email address is taken or not
 @api_view(['GET'])
 def CheckEmailAPI(request, email):
@@ -132,3 +102,15 @@ def CheckEmailAPI(request, email):
         return JsonResponse({'available': False}, safe=False)
     else:
         return JsonResponse({'available': True}, safe=False)
+
+
+#check wheather the email address is exists in the db or not
+@api_view(['GET'])
+def checkEmailExists(request, email):
+    
+    is_email_exists = User.objects.filter(email=email).exists()
+    
+    if is_email_exists:
+        return JsonResponse({'exists': True})
+    else:
+        return JsonResponse({'exists': False})
