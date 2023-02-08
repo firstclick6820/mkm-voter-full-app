@@ -100,30 +100,27 @@ WSGI_APPLICATION = 'voter_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'supervoter_9dqk',
-#         'USER': 'root',
-#         'PASSWORD': 'DGUAGNZaGuWmIE8d3GCx6pzVSOirJTHo',
-#         'HOST': 'dpg-cf9uftmn6mpv49fi7ct0-a.oregon-postgres.render.com',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
 
 
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'voter',
+        'USER': 'root',
+        'PASSWORD': '4EvhOkdMdFvm5YxXL6v0vl0eMF5PWcO3',
+        'HOST': 'dpg-cfhu57la499bfu2os28g-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
+}
 
 
 
@@ -195,8 +192,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER ='mohammadkhalidmomand@gmail.com'
 EMAIL_HOST_PASSWORD = 'mpcsforiavklfbeb'
 EMAIL_USE_TLS = True
-
-
 
 
 VITE_APP_DIR = FRONTEND_DIR 

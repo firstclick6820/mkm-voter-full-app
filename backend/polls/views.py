@@ -7,8 +7,11 @@ from datetime import timedelta
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.views import View
-
+from rest_framework.decorators import api_view
 from rest_framework import status
+
+
+
 
 from accounts.serializers import UserCreateSerializer
 from .models import Poll, Choice, Vote
@@ -22,8 +25,9 @@ User = get_user_model()
 def remove_empty_choices(choices):
     return [choice for choice in choices if choice['choice_text']]
 
+
+
 class PollAPI(APIView):
-    
     # Get a Poll or List of a Poll
     def get(self, request, id=None):
         if id:
@@ -34,9 +38,10 @@ class PollAPI(APIView):
             polls = Poll.objects.all().order_by('-created_at')
             serializer = PollSerializer(polls, many=True)
             return Response(serializer.data)
+            
+        
 
-
-
+    # create a poll
     def post(self, request):
         data = request.data.copy()
             
@@ -59,10 +64,36 @@ class PollAPI(APIView):
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
- 
+
+
+    # Update a poll
+    def put(self, request, poll_id):
+        poll = get_object_or_404(Poll.objects.all(), id=poll_id)
+        data = request.data.copy()
+        
+        user = request.data['created_by']
+        
+        data['created_by'] = user['id']
+        data['choices'] = remove_empty_choices(data['choices'])
+        
+        serializer = PollWriteSerializer(poll, data=data, partial=True)
+        if serializer.is_valid():
+            poll = serializer.save()
+            return Response({'success': 'Poll updated successfully'})
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
+    # Delete the poll
+    def delete(self, request, poll_id):
+        poll = get_object_or_404(Poll, id=poll_id)
+        if poll:
+            poll.delete()
+            return Response({'success': True, "message": "Poll is deleted successfully."})
+
+        return Response({'fail': True, "message": "Something went Wrong, Please try again later!"})
+
+        
 
 
 

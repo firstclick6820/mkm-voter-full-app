@@ -29,9 +29,7 @@ const Polls = () => {
 
 
 
-  if( polls === null) {
-    return <PlaceHolder placeholder="No Data" />
-  }else {
+  if( polls === null) return <PlaceHolder placeholder="No Data" />;
     return (
       <>
           <div className="section relative z-0 py-16 md:pt-20 pt-20 md:pb-20">
@@ -51,31 +49,25 @@ const Polls = () => {
   
                     {/* Second colum / */}
                     <div className="lg:col-span-9 col-span-1 gap-2">
-                    {polls && polls.length > 0 ? (
-                        polls.map((poll, id) => {
-                          
-                          let emailFound = false;
-                          if(isAuthenticated) {
-                            if (poll.voters && poll.voters.includes(authUser.email)) {
-                              emailFound = true;
-                            }}
-                          return emailFound ? <PollCard key={id} poll={poll} voted={true}/> : <PollCard key={id} poll={poll} voted={false} />;
-                        })
-                      ) : (
-                         <PlaceHolder placeholder="No Polls" />
-                      )}
-  
-              
+                        {polls && polls.length > 0 ? (
+                            polls.map((poll, id) => {
+                              
+                              let emailFound = false;
+                              if(isAuthenticated) {
+                                if (poll.voters && poll.voters.includes(authUser.email)) {
+                                  emailFound = true;
+                                }}
+                              return emailFound ? <PollCard key={id} poll={poll} voted={true}/> : <PollCard key={id} poll={poll} voted={false} />;
+                            })
+                          ) : (
+                            <PlaceHolder placeholder="No Polls" />
+                          )}
                     </div>
               </div>
           </div>
       </>
     )
   }
-
-
-  
-}
 
 export default Polls;
 

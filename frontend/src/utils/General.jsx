@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export const HumanReadableDate = ({ date }) => {
   const end = moment(date);
-  return <>{end.toNow()}</>;
+  return <>{end.fromNow()}</>;
 };
 
 
@@ -17,3 +17,9 @@ export const CapitalizedFirstLetter = (text) => {
 export const EmailFirstSecondLetters = (email) => {
   return <>{email.charAt(0) + email.charAt(1) + email.charAt(2)}</>;
 };
+
+
+
+export const  partialLetters = (str, num)  => {
+  return str.slice(0, num) + "";
+}

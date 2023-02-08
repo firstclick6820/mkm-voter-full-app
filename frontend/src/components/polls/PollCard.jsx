@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
-import {HumanReadableDate, CapitalizedFirstLetter} from '../../utils/General'
+import {HumanReadableDate, CapitalizedFirstLetter, partialLetters} from '../../utils/General'
 import { useSelector, useDispatch } from 'react-redux'
 
+
+// import custom components
+import PollModel from './PollModel'
+import PollEditModel from './PollEditModel'
 
 const PollCard = ({poll, voted}) => {
     const isAuthenticated = useSelector(state=> state.auth.isAuthenticated)
@@ -11,6 +15,16 @@ const PollCard = ({poll, voted}) => {
 
 
 
+    const [showDeleteModel, setDeleteModelShow] = useState(false)
+    const [showEditModel, setEditModel] = useState(false)
+
+
+    const handleDeleteModel = () => {
+        setDeleteModelShow(!showDeleteModel)    }
+
+    const handleEditModel = () => {
+        setEditModel(!showEditModel)
+    }
 
   return (
     <>
@@ -22,30 +36,29 @@ const PollCard = ({poll, voted}) => {
 
                                     <div className="bg-gray-200 px-6 py-4">
                                         <div className="flex justify-between pt-3">
-                                            <div className="flex  justify-center ">
-                                                <div className="bg-red-600 w-12 h-12 rounded-full uppercase font-bold text-white">AD</div>
+
+                                            <div className="flex  items-center">
+                                                <div className="bg-red-600 w-12 h-12 rounded-full uppercase font-bold flex justify-center items-center text-center text-white">{partialLetters(poll.created_by.account_type, 2)}</div>
                                                 <div className="flex ml-3">
-                                        
-                                                        <p className="hover:underline decoration-2 hover:text-red-600 ">
-                                                            <Link to={`/user/profile/${poll.created_by.id}`}>{poll.created_by.email}</Link></p>
-                                                        <p 
-                                                            className="text-sm text-gray-700 mt-1 ml-2">
-                                                                ({CapitalizedFirstLetter(poll.created_by.account_type)})
-                                                        </p>
-                                                
-                                                    
+                                                    <p className="hover:underline decoration-2 hover:text-red-600 ">
+                                                        <Link to={`/user/profile/${poll.created_by.id}`}>{poll.user_details.first_name === null ?  poll.created_by.email : poll.user_details.first_name  }</Link></p>
+                                                    <p className="text-sm text-gray-700 mt-1 ml-2">
+                                                        ({CapitalizedFirstLetter(poll.created_by.account_type)})
+                                                    </p>
                                                 </div>
                                             </div>
+
                                             {(isAuthenticated && authUser && authUser !== null && authUser.email === poll.created_by.email) ? 
                                             (
                                                 <div className="right">
                                                     <div className="flex justify-center gap-2">
                                                         <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
-                                                            <a onClick={()=> {}} >Edit</a>
+                                                            <a onClick={handleEditModel} >Edit</a>
                                                         </p>
 
                                                         <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
-                                                            <a onClick={()=> {}} >Delete</a>
+                                                            <a onClick={handleDeleteModel} >Delete</a>
+                                                            {/* data-modal-target="popup-modal" data-modal-toggle="popup-modal" */}
                                                         </p>
                     
                                                     </div>
@@ -86,7 +99,7 @@ const PollCard = ({poll, voted}) => {
 
                                     <div className="px-6 py-4 border-t border-gray-200 flex justify-between">
                                         <p className="font-bold">Poll Ends: </p>
-                                        <p>{HumanReadableDate(poll.end_date)}</p>
+                                        <p>{<HumanReadableDate date={poll.end_date} />}</p>
                                     </div>
 
                                     <div className="px-6 py-4 border-t border-gray-200 flex justify-between">
@@ -99,8 +112,13 @@ const PollCard = ({poll, voted}) => {
                 </div>
             </div>
         </main>
+
+        <PollModel show={showDeleteModel} handleClose={handleDeleteModel} poll_id={poll.id}/>
+        <PollEditModel show={showEditModel} handleClose={handleEditModel} poll={poll}/>
     </>
   )
 }
+
+
 
 export default PollCard

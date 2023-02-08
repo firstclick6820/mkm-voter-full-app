@@ -4,6 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 import uuid
 
+from django.utils import timezone
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -114,6 +116,12 @@ class Profile(models.Model):
     #Return the user Email, khalid@mgail.com
     def __str__(self):
         return self.user.email
+    
+    
+    def save(self, *args, **kwargs):
+        if not self.date_of_joining:
+            self.date_of_joining = timezone.now()
+        super().save(*args, **kwargs)
     
     
     

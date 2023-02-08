@@ -44,6 +44,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          
           <div className="flex-shrink max-w-full w-full lg:w-3/5 px-3">
             <div className="flex flex-wrap flex-row">
               <div className="flex-shrink max-w-full w-1/2 md:w-1/3 mb-6 lg:mb-0">
@@ -53,24 +54,6 @@ const Footer = () => {
                   <li className="py-1 hover:text-gray-900"><a href="docs/components.html">Components</a></li>
                   <li className="py-1 hover:text-gray-900"><a href="docs/credits.html">Credits</a></li>
                   <li className="py-1 hover:text-gray-900"><a href="docs/changelogs.html">Changelog</a></li>
-                </ul>
-              </div>
-              <div className="flex-shrink max-w-full w-1/2 md:w-1/3 mb-6 lg:mb-0">
-                <h4 className="text-base leading-normal mb-3 uppercase text-gray-800">Includes</h4>
-                <ul>
-                  <li className="py-1 hover:text-gray-900"><a href="#">Tailwind Css</a></li>
-                  <li className="py-1 hover:text-gray-900"><a href="#">Javascript</a></li>
-                  <li className="py-1 hover:text-gray-900"><a href="#">Vendors Js</a></li>
-                  <li className="py-1 hover:text-gray-900"><a href="#">Build System</a></li>
-                </ul>
-              </div>
-              <div className="flex-shrink max-w-full w-1/2 md:w-1/3 mb-6 lg:mb-0">
-                <h4 className="text-base leading-normal mb-3 uppercase text-gray-800">Legal</h4>
-                <ul>
-                  <li className="py-1 hover:text-gray-900"><a href="#">Privacy Policy</a></li>
-                  <li className="py-1 hover:text-gray-900"><a href="#">Terms of Use</a></li>
-                  <li className="py-1 hover:text-gray-900"><a href="#">License</a></li>
-                  <li className="py-1 hover:text-gray-900"><a href="#">GDPR</a></li>
                 </ul>
               </div>
             </div>

@@ -24,9 +24,19 @@ class Poll(models.Model):
             total_votes = sum(choice.votes for choice in choices)
             return int(total_votes)
         return 0
+    
+    
 
     def user_details(self):
-        return self.created_by
+        profile = self.created_by.profile
+        return {
+            'first_name':profile.first_name,
+            'last_name': profile.last_name,
+            'summary': profile.summary,
+            'bio': profile.bio,
+        }
+    
+    
     
     def __str__(self):
         return self.question

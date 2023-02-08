@@ -257,8 +257,20 @@ function PollForm() {
                     <div className="item">
                             <label className="block mt-7"></label>
                         <button type="submit"
-                                disabled={errors.length > 0  ? true : false}
-                                className={`${errors && Object.keys(errors).length ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `}>
+                                disabled={( errors.length > 0  
+                                            || !values.choice_1 
+                                            || !values.choice_2 
+                                            || !values.days 
+                                            || !values.hours
+                                            || !values.minutes
+                                            || !values.question ) ? true : false}
+                                className={`${( errors.length > 0  
+                                            || !values.choice_1 
+                                            || !values.choice_2 
+                                            || !values.days 
+                                            || !values.hours
+                                            || !values.minutes
+                                            || !values.question ) ? "bg-red-200" : "bg-red-600"} w-full text-white hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `}>
                                 Create Poll
                         </button>
                     </div>
