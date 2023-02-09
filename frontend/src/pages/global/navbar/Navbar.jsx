@@ -66,11 +66,13 @@ const Navbar = () => {
                                       Polls
                                     </Link>
                                   </li>
-                                  {authLinks(uid)}
+                                  {(isAuthenticated && authUser !== ( null || undefined) ) ? authLinks(uid) : visitorLinks()}
                                 </ul>
                               )}
                         </div>
                       </div>
+
+
                     </div>
                   
                   <div className="flex flex-row">
@@ -93,7 +95,7 @@ const Navbar = () => {
                       </li>
 
 
-                        {(isAuthenticated && authUser ) ? authLinks(uid) : visitorLinks()}
+                        {(isAuthenticated && authUser !== ( null || undefined) ) ? authLinks(uid) : visitorLinks()}
 
                     </ul>
 

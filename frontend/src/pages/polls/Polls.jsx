@@ -41,9 +41,11 @@ const Polls = () => {
                     <div className="lg:col-span-3 col-span-1">
                       <div className="lg:sticky relative top-24">
                             {isAuthenticated && authUser !== null  && authUser.account_type === 'creator' ? (
-                                <>
-                                  <PollForm />
-                                </>
+                                
+                                <div className="lg:mb-0 mb-28 p-4 lg:p-2">
+                                    <PollForm />
+                                </div>
+                                
                             ) :   <SideCard />}
                       </div>
                     </div>

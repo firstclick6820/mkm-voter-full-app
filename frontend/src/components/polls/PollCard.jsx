@@ -35,14 +35,14 @@ const PollCard = ({poll, voted}) => {
                         <div className="bg-white shadow-lg rounded-lg overflow-hidden mb-10 justify-start">
 
                                     <div className="bg-gray-200 px-6 py-4">
-                                        <div className="flex justify-between pt-3">
+                                        <div className="flex justify-between items-center gap-2 pt-3">
 
                                             <div className="flex  items-center">
                                                 <div className="bg-red-600 w-12 h-12 rounded-full uppercase font-bold flex justify-center items-center text-center text-white">{partialLetters(poll.created_by.account_type, 2)}</div>
                                                 <div className="flex ml-3">
                                                     <p className="hover:underline decoration-2 hover:text-red-600 ">
                                                         <Link to={`/user/profile/${poll.created_by.id}`}>{poll.user_details.first_name === null ?  poll.created_by.email : poll.user_details.first_name  }</Link></p>
-                                                    <p className="text-sm text-gray-700 mt-1 ml-2">
+                                                    <p className="text-sm text-gray-700 mt-1 ml-2 lg:block hidden">
                                                         ({CapitalizedFirstLetter(poll.created_by.account_type)})
                                                     </p>
                                                 </div>
@@ -51,7 +51,7 @@ const PollCard = ({poll, voted}) => {
                                             {(poll !== (null || undefined ) && isAuthenticated && authUser && authUser !== null && authUser.email === poll.created_by.email) ? 
                                             (
                                                 <div className="right">
-                                                    <div className="flex justify-center gap-2">
+                                                    <div className="flex justify-center gap-2 items-center">
                                                             <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
                                                                 <a onClick={handleEditModel} >Edit</a>
                                                             </p>
