@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import CreatePoll from './CreatePoll'
+
 
 // import custom components
-import {VoteCard, PollCard , PostCard, PlaceHolder, PollForm} from '../../components'
+import {PollCard , PlaceHolder, PollForm} from '../../components'
 
 
 
@@ -29,7 +29,9 @@ const Polls = () => {
 
 
 
-  if( polls === null) return <PlaceHolder placeholder="No Data" />;
+    if( polls === null) return <PlaceHolder placeholder="No Data" />;
+
+
     return (
       <>
           <div className="section relative z-0 py-16 md:pt-20 pt-20 md:pb-20">
@@ -39,11 +41,10 @@ const Polls = () => {
                     <div className="lg:col-span-3 col-span-1">
                       <div className="lg:sticky relative top-24">
                             {isAuthenticated && authUser !== null  && authUser.account_type === 'creator' ? (
-                              <>
-
-                                    <PollForm />
+                                <>
+                                  <PollForm />
                                 </>
-                            ) : <SideCard />}
+                            ) :   <SideCard />}
                       </div>
                     </div>
   

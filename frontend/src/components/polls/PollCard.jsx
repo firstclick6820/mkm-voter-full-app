@@ -48,22 +48,22 @@ const PollCard = ({poll, voted}) => {
                                                 </div>
                                             </div>
 
-                                            {(isAuthenticated && authUser && authUser !== null && authUser.email === poll.created_by.email) ? 
+                                            {(poll !== (null || undefined ) && isAuthenticated && authUser && authUser !== null && authUser.email === poll.created_by.email) ? 
                                             (
                                                 <div className="right">
                                                     <div className="flex justify-center gap-2">
-                                                        <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
-                                                            <a onClick={handleEditModel} >Edit</a>
-                                                        </p>
+                                                            <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
+                                                                <a onClick={handleEditModel} >Edit</a>
+                                                            </p>
 
-                                                        <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
-                                                            <a onClick={handleDeleteModel} >Delete</a>
-                                                            {/* data-modal-target="popup-modal" data-modal-toggle="popup-modal" */}
-                                                        </p>
-                    
+                                                            <p className="text-gray-400 hover:underline decoration-2 hover:text-red-600 cursor-pointer ">
+                                                                <a onClick={handleDeleteModel} >Delete</a>
+                                                                {/* data-modal-target="popup-modal" data-modal-toggle="popup-modal" */}
+                                                            </p>
+                        
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ): ""
+                                                ): ""
                                             }
 
                                             
@@ -113,8 +113,14 @@ const PollCard = ({poll, voted}) => {
             </div>
         </main>
 
-        <PollModel show={showDeleteModel} handleClose={handleDeleteModel} poll_id={poll.id}/>
-        <PollEditModel show={showEditModel} handleClose={handleEditModel} poll={poll}/>
+        {(poll !== (null || undefined ) && isAuthenticated && authUser && authUser !== null && authUser.email === poll.created_by.email) ? 
+                    (   <>
+                            <PollModel show={showDeleteModel} handleClose={handleDeleteModel} poll_id={poll.id}/>
+                            <PollEditModel show={showEditModel} handleClose={handleEditModel} poll={poll}/>
+                        </>
+                    ): ""
+        }
+        
     </>
   )
 }
